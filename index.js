@@ -34,6 +34,8 @@ function main(){
                 break;
 
             case '2':
+
+            
                 console.log('Arquivos do diretorio: ');
                 break;
 

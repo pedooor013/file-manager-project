@@ -9,7 +9,7 @@ function createDirectory(dirPath){
             if(err){
                 reject;
             }else{
-                resolve(`Directory '${dirPath} created successfully'`);
+                resolve(`Directory '${dirPath}' created successfully'`);
             }
         })
     })
