@@ -28,5 +28,5 @@ function createFile(filePath, content = ''){
 }
 
 //Serve para exportar para outros arquivos
-module.exports = (createDirectory, createFile);
+module.exports = {createDirectory, createFile};
 
