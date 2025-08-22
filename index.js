@@ -1,8 +1,9 @@
     const fileManager = require("./fileManager");
     const readLineSync = require("readline-sync");
     const path = require("path");
+const { readFile, readFileSync } = require("fs");
 
-    async function main() {
+async function main() {
     const baseDir = path.join(__dirname, "my_files");
     fileManager.createDirectory(baseDir);
 
@@ -18,7 +19,9 @@
             `);
 
         const choice = readLineSync.question("Escolha uma opção:");
-
+        try{
+        
+        
         switch (choice) {
         case "1":
             const fileName = readLineSync.question("Digite o nome do arquivo: ");
@@ -38,27 +41,45 @@
             break;
 
         case "2":
-            console.log("Arquivos do diretorio: ");
-            break;
-
+            const files = await fileManager.listFiles(baseDir);
+            console.log("Arquivos no dietorio ", files);
+            break;            
         case "3":
-            console.log("Conteúdo do arquivo:");
+            const readFileName = readLineSync.question("Digite o nome do arquivo desejado: ");
+            const readFilePath = path.join(baseDir, readFileName);
+            const content = await fileManager.readFile(readFilePath);
+            
+            console.log("Conteudo do arquivo: ", content);
+            
             break;
 
         case "4":
-            console.log("Arquivo escrito com sucesso!");
+            const writeFileName = readLineSync.question("Digite o nome do arquivo a ser escrito: ");
+            const writeFilePath = path.join(baseDir, writeFileName);
+            const newContent = readLineSync.question("Digite o conteudo a ser inserido no arquivo: ");
+            await fileManager.writeFile(writeFilePath, newContent);
+
+            console.log(`Arquivo ${writeFileName} foi escrito: ${newContent}`);
+
             break;
 
         case "5":
-            console.log("Arquivo deletado com sucesso!");
-            break;
+            const delFileName = readLineSync.question("Digite o nome do arquivo a ser deletado: ");
+            const delFilePath = path.join(baseDir, delFileName);
+            await fileManager.deleteFile(delFilePath);
 
+            console.log(`O arquivo ${delFileName} foi deletado com sucesso!`);
+
+            break;
         case "6":
             console.log("Saindo...");
             return;
             break;
         default:
             console.log("Opção inválida. Tente novamente!");
+        }
+        }catch(err){
+            console.log(err)
         }
     }
     }
