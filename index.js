@@ -1,10 +1,13 @@
-    const fileManager = require("./fileManager");
-    const readLineSync = require("readline-sync");
-    const path = require("path");
-const { readFile, readFileSync } = require("fs");
+    import fileManager from "./fileManager.js";
+    import readLineSync from "readline-sync";
+    import path from "path" ;
+    import url, { fileURLToPath } from 'url';
 
 async function main() {
+
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const baseDir = path.join(__dirname, "my_files");
+    
     fileManager.createDirectory(baseDir);
 
     while (true) {
@@ -24,9 +27,10 @@ async function main() {
         
         switch (choice) {
         case "1":
+
             const fileName = readLineSync.question("Digite o nome do arquivo: ");
             const fileContent = readLineSync.question(
-            "Digite o conteudo do novo arquivo (Ou deixe em branco): "
+            "Digite o conteudo do novo arquivo (Ou deixe em branco): "    
             );
 
             //dirname é o nome do diretorio atual
@@ -58,7 +62,7 @@ async function main() {
             const writeFilePath = path.join(baseDir, writeFileName);
             const newContent = readLineSync.question("Digite o conteudo a ser inserido no arquivo: ");
             await fileManager.writeFile(writeFilePath, newContent);
-
+ 
             console.log(`Arquivo ${writeFileName} foi escrito: ${newContent}`);
 
             break;

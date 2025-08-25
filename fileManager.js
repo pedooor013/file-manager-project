@@ -1,7 +1,6 @@
 //Bibliotecas padrão do node.js
 //Commom JS 
-const fs = require('fs'); //fs = file system
-const path = require('path'); // path = pasta 
+import fs from 'fs'; //fs = file system
 
 function createDirectory(dirPath){
     return new Promise((resolve, reject) =>{
@@ -76,5 +75,5 @@ function deleteFile(filePath){
 }
 
 //Serve para exportar para outros arquivos
-module.exports = {createDirectory, createFile, listFiles, readFile, writeFile, deleteFile};
+export default {createDirectory, createFile, listFiles, readFile, writeFile, deleteFile};
 
